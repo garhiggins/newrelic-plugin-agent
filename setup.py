@@ -2,14 +2,12 @@ import os
 from setuptools import setup
 import sys
 
-base_path = '%s/opt/newrelic-plugin-agent' % os.getenv('VIRTUAL_ENV', '')
-data_files = dict()
-data_files[base_path] = ['LICENSE',
-                         'README.rst',
-                         'etc/init.d/newrelic-plugin-agent.deb',
-                         'etc/init.d/newrelic-plugin-agent.rhel',
-                         'etc/newrelic/newrelic-plugin-agent.cfg',
-                         'apc-nrp.php']
+data_files = ['LICENSE',
+              'README.rst',
+              'etc/init.d/newrelic-plugin-agent.deb',
+              'etc/init.d/newrelic-plugin-agent.rhel',
+              'etc/newrelic/newrelic-plugin-agent.cfg',
+              'apc-nrp.php']
 
 console_scripts = ['newrelic-plugin-agent=newrelic_plugin_agent.agent:main']
 install_requires = ['helper>=2.2.2', 'requests>=2.0.0']
@@ -30,7 +28,8 @@ setup(name='newrelic_plugin_agent',
       author_email='gavinmroy@gmail.com',
       license='BSD',
       entry_points={'console_scripts': console_scripts},
-      data_files=[(key, data_files[key]) for key in data_files.keys()],
+      data_files=[('', data_files)],
+      zip_safe=False,
       install_requires=install_requires,
       extras_require=extras_require,
       tests_require=tests_require,
